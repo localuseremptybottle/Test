@@ -1,6 +1,6 @@
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-
+import allure
 import pytest
 from pages.my_account_page import Myaccountpage
 from random import randint
@@ -12,6 +12,7 @@ from password_generator import PasswordGenerator
 
 class TestLogin:
         #test do sprawdzania logowania
+    @allure.step("Odpalenie testu logowania do konta")
     def test_LoginUserCorrect(self): #Bez opcji kasowania
         login ='wuj3khp@gmail.com'
         password = '13qeadzc'
