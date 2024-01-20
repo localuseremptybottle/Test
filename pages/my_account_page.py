@@ -3,7 +3,7 @@
 import logging
 import os.path
 import time
-
+import allure
 from selenium.webdriver.support import expected_conditions as EC
 
 from selenium.common import NoSuchElementException
@@ -194,12 +194,12 @@ class Myaccountpage:    #Tutaj sa łączone lokatory w metodzie init, bo je bedz
         self.Enteraccountinfotext = MyAccountPagelocators.enter_account_info_text
         self.Logintoyouraccounttext = MyAccountPagelocators.login_to_your_account_text
 
-
-
+    @allure.step("Otwarcie strony testowej")
     def open_page(self):
         self.logger.info(" Navigate to url 'http://automationexercise.com'")
         self.driver.get('http://automationexercise.com')
 
+    @allure.step("Wyłączenie Reklam")
     def switch_to_frame(self):
         self.logger.info(" Adv. Scripts ")
         self.driver.implicitly_wait(3)
@@ -222,7 +222,7 @@ class Myaccountpage:    #Tutaj sa łączone lokatory w metodzie init, bo je bedz
         for ins in inselement:
             self.driver.execute_script("arguments[0].style.display = 'none';", ins)
 
-
+    @allure.step("Wprowadz dane do logowania")
     def log_in(self,email,password):
         self.driver.find_element(By.XPATH,self.login_input).send_keys(email)
         self.driver.find_element(By.XPATH,self.password_input).send_keys(password)
@@ -399,6 +399,7 @@ class Myaccountpage:    #Tutaj sa łączone lokatory w metodzie init, bo je bedz
         self.logger.info("Click 'Delete Account' button")
         self.driver.find_element(By.XPATH, self.MainPage_Deletebutton).click()
 
+    @allure.step("Kliknij na guzik Zaloguj")
     def click_on_Signupbutton(self):
         self.logger.info("Click on 'Signup / Login' button")
         self.driver.find_element(By.XPATH, self.signin_button).click()
@@ -479,18 +480,24 @@ class Myaccountpage:    #Tutaj sa łączone lokatory w metodzie init, bo je bedz
     def is_accountdeletedtextis_displayed(self):
         self.logger.info("Verify that 'ACCOUNT DELETED!' is visible and click 'Continue' button")
         return self.driver.find_element(By.XPATH, self.MainPage_Deleteaccounttext).is_displayed()
+
+    @allure.step("Czy widnieje tekst zalogowania")
     def is_loggedasis_displayed(self):
         self.logger.info("Verify that 'Logged in as username' is visible")
         return self.driver.find_element(By.XPATH, self.MainPage_Loggedtext).is_displayed()
     def is_textaccountcreated_displayed(self):
         self.logger.info("Verify that 'ACCOUNT CREATED!' is visible")
         return self.driver.find_element(By.XPATH, self.Account_text_created).is_displayed()
+
+    @allure.step("Czy logo jest wyświetlone")
     def is_logo_dsplayed(self):
         self.logger.info("Verify that home page is visible successfully")
         return self.driver.find_element(By.XPATH, self.Logo).is_displayed()
     def is_NewUserSignup_displayed(self):
         self.logger.info("Verify 'New User Signup!' is visible")
         return self.driver.find_element(By.XPATH, self.Newusertext).is_displayed
+
+    @allure.step("Czy wyświetla się tekst ,,Login to your Account'' ")
     def is_Logintoyouraccount_displayed(self):
         self.logger.info("Verify 'Login to your Account!' is visible")
         return self.driver.find_element(By.XPATH, self.Logintoyouraccounttext).is_displayed
